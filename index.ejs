@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>patient tracker</title>
+</head>
+<body>
+   <header>
+    <!-- Hamburger button -->
+    <button class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <nav id="navbar">
+        <ul class="nav-links">
+      
+            <img src="img/pt.png" alt="">
+            <li><a href="#">Patient Profile</a></li>
+            <li><a href="#">Exercise Log</a></li>
+            <li><a href="#">Progress Reports</a></li>
+        </ul>
+    </nav>
+</header>
+    <main>
+        <h1>Welcome to Patient Tracker</h1>
+        <h3>Track Your Progress</h3>
+<p>Recovery is a journey, and RecoverRight is your reliable guide. We help you stay motivated and compliant with your prescribed exercises, ensuring you achieve your recovery goals efficiently.
+Personalized Exercise Plans: Access your specific physical therapy exercises prescribed directly by your therapist, complete with detailed instructions and videos.
+Daily Reminders: Never miss a session. Set custom, intelligent reminders that pop up when it's time to complete your exercises, ensuring consistency.
+Track Your Progress: Easily log completed exercises, track your pain levels, flexibility, and strength improvements over time. Visualize your journey and celebrate your milestones!
+Secure Messaging: Communicate securely with your physical therapist if you have questions or concerns about your routine.</p>
+
+<img src="img/argaz.png" alt="">
+    </main>
+     <div class="content-container">
+        <section class="one">
+           <p>Login or Signup:</p>
+
+       
+            <h4>Search for a Patient:</h4>
+            <input type="text" id="patientNameInput" placeholder="Enter full name (e.g., John Doe)">
+            <button id="searchButton" class="btn btn-default">Search Patient Info</button>
+            <div id="patientInfoOutput">
+                
+            </div>
+
+        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span>Login</a>
+        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span>Signup</a>
+
+        </section>
+        
+    </div>
+  
+
+<script src="main.js"></script>
+</body>
+</html>
