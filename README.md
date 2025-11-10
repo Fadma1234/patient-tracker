@@ -2,16 +2,24 @@
 # Patient Tracker Application
 <img width="1920" alt="image" src="https://github.com/user-attachments/assets/82175a42-3103-48f6-a3cb-efc6a2c841e0" />
 
-This is a simple patient tracking web application built using Node.js, Express, and EJS (Embedded JavaScript templating). It provides basic functionality for viewing patient information and includes routes for user authentication pages (Login/Signup).
+This is a simple patient tracking web application. It provides basic functionality for viewing patient information and includes routes for user authentication pages (Login/Signup).
 The application uses local mock data to simulate a backend API for patient lookups.
-# Features
-Homepage: A welcome page (index.ejs) with general information and a patient search function.
-Patient Search API: Allows searching for a specific patient's data (John Doe or Jane Smith) via the frontend and retrieving it from the Express server's data object.
-User Authentication Pages: Routes are configured for login (/login), signup (/signup), and profile (/profile) pages. (Note: Authentication logic is not fully implemented in the provided code snippet.)
-Static File Serving: Express is configured to correctly serve CSS, client-side JavaScript, and image files.
-Responsive Navigation: Includes a basic hamburger menu structure handled by main.js.
-# Technologies Used
-Backend: Node.js, Express.js
-Frontend: EJS, HTML, CSS, JavaScript (client-side)
+### Tech Stack
+- HTML
 
-Dependencies: cors, ejs, express
+- CSS
+  
+- JavaScript
+  
+- Node.js
+  
+- Express.js
+  
+- MongoDB
+  
+- EJS
+
+
+### Live Demo
+Click the link on the right under About to see the live demo.
+
