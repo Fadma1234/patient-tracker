@@ -19,7 +19,9 @@ The application uses local mock data to simulate a backend API for patient looku
   
 - EJS
 
+- Passport
 
 ### Live Demo
 Click the link on the right under About to see the live demo.
+
 
