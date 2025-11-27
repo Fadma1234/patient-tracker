@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+
+<h1>My Exercise Plan</h1>
+
+<% if (activePlan && activePlan.exercises && activePlan.exercises.length > 0) { %>
+  <div class="row mt-4">
+    <% activePlan.exercises.forEach(planExercise => { %>
+      <% if (planExercise.exerciseId) { %>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <% if (planExercise.exerciseId.imageUrl) { %>
+              <img src="<%= planExercise.exerciseId.imageUrl %>" class="card-img-top" alt="<%= planExercise.exerciseId.name %>">
+            <% } %>
+            <div class="card-body">
+              <h5 class="card-title"><%= planExercise.exerciseId.name %></h5>
+              <p class="card-text"><%= planExercise.exerciseId.description %></p>
+              
+              <ul class="list-unstyled">
+                <% if (planExercise.sets) { %>
+                  <li><strong>Sets:</strong> <%= planExercise.sets %></li>
+                <% } %>
+                <% if (planExercise.reps) { %>
+                  <li><strong>Reps:</strong> <%= planExercise.reps %></li>
+                <% } %>
+                <% if (planExercise.duration) { %>
+                  <li><strong>Duration:</strong> <%= planExercise.duration %> seconds</li>
+                <% } %>
+                <% if (planExercise.frequency) { %>
+                  <li><strong>Frequency:</strong> <%= planExercise.frequency %></li>
+                <% } %>
+              </ul>
+              
+              <a href="/patient/exercises/<%= planExercise.exerciseId._id %>" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    <% }) %>
+  </div>
+<% } else { %>
+  <div class="alert alert-info mt-4">
+    No active exercise plan. Please contact your therapist to get started.
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

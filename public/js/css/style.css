@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
+footer {
+  margin-top: auto;
+}
+
+/* Hero section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 100px 0;
+}
+
+.hero-section h1 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-section .lead {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Avatar styles */
+.rounded-circle {
+  object-fit: cover;
+}
+
+/* Exercise cards */
+.exercise-card {
+  height: 100%;
+}
+
+.exercise-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Progress page styles */
+.progress-chart {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Message styles */
+.message-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Badge styles */
+.badge {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+}
+
+/* Navbar styles */
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Form styles */
+.form-control:focus,
+.form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.btn-primary:hover {
+  background-color: #5568d3;
+  border-color: #5568d3;
+}
+
+/* Alert styles */
+.alert {
+  border-radius: 8px;
+}
+
+/* Table styles */
+.table {
+  background-color: white;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50px 0;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .hero-section .lead {
+    font-size: 1.2rem;
+  }
+}
+
+/* Loading spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

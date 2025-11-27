@@ -1,0 +1,100 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/patient/dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="/patient/exercises">Exercises</a></li>
+      <li class="breadcrumb-item active"><%= exercise.name %></li>
+    </ol>
+  </nav>
+
+  <h1 class="mb-4"><%= exercise.name %></h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <% if (exercise.videoUrl) { %>
+        <div class="ratio ratio-16x9 mb-4">
+          <video controls class="rounded">
+            <source src="<%= exercise.videoUrl %>" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      <% } else if (exercise.imageUrl) { %>
+        <img src="<%= exercise.imageUrl %>" class="img-fluid rounded mb-4" alt="<%= exercise.name %>">
+      <% } %>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Description</h3>
+          <p><%= exercise.description %></p>
+
+          <% if (exercise.instructions && exercise.instructions.length > 0) { %>
+            <h3 class="mt-4">Instructions</h3>
+            <ol class="mb-0">
+              <% exercise.instructions.forEach(instruction => { %>
+                <li class="mb-2"><%= instruction %></li>
+              <% }) %>
+            </ol>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <span class="badge bg-primary me-2"><%= exercise.category %></span>
+        <span class="badge bg-secondary"><%= exercise.difficulty %></span>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Log This Exercise</h4>
+        </div>
+        <div class="card-body">
+          <form action="/patient/exercises/<%= exercise._id %>/log" method="POST">
+            <div class="mb-3">
+              <label for="painLevel" class="form-label">Pain Level (1-10)</label>
+              <input type="range" class="form-range" id="painLevel" name="painLevel" min="1" max="10" value="5">
+              <div class="d-flex justify-content-between">
+                <small>1 (No pain)</small>
+                <small>10 (Severe)</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="difficultyRating" class="form-label">Difficulty (1-5)</label>
+              <select class="form-select" id="difficultyRating" name="difficultyRating">
+                <option value="1">1 - Very Easy</option>
+                <option value="2">2 - Easy</option>
+                <option value="3" selected>3 - Moderate</option>
+                <option value="4">4 - Hard</option>
+                <option value="5">5 - Very Hard</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="duration" class="form-label">Duration (seconds)</label>
+              <input type="number" class="form-control" id="duration" name="duration" min="0" placeholder="How long did you exercise?">
+            </div>
+
+            <div class="mb-3">
+              <label for="notes" class="form-label">Notes (optional)</label>
+              <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any observations or comments..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">
+              <i class="fas fa-check me-2"></i>Mark as Complete
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <a href="/patient/exercises" class="btn btn-outline-secondary w-100">
+        <i class="fas fa-arrow-left me-2"></i>Back to Exercises
+      </a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

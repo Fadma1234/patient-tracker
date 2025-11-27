@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/">Patient Tracker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if (user) { %>
+          <% if (user.role === 'patient') { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/patient/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/patient/exercises">My Exercises</a>
+            </li>
+              <li class="nav-item"></li>
+            <a href="/patient/reminders" class="nav-link">Reminders</a> </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/patient/progress">Progress</a>
+            </li>
+          <% } else if (user.role === 'therapist') { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/therapist/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/therapist/patients">Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/therapist/exercises">Exercises</a>
+            </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/messages">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout">Logout</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/signup">Sign Up</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

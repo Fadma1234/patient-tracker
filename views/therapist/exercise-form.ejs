@@ -1,0 +1,67 @@
+    <%- include('../partials/header') %>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2><%= exercise ? 'Edit' : 'Create New' %> Exercise</h2>
+          </div>
+          <div class="card-body">
+            <form action="/therapist/exercises" method="POST" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="name" class="form-label">Exercise Name *</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= exercise ? exercise.name : '' %>" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label">Description *</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required><%= exercise ? exercise.description : '' %></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="instructions" class="form-label">Instructions (one per line) *</label>
+                <textarea class="form-control" id="instructions" name="instructions" rows="5" required><%= exercise ? exercise.instructions.join('\n') : '' %></textarea>
+                <small class="form-text text-muted">Enter each step on a new line</small>
+              </div>
+
+              <div class="mb-3">
+                <label for="category" class="form-label">Category *</label>
+                <select class="form-select" id="category" name="category" required>
+                  <option value="mobility" <%= exercise && exercise.category === 'mobility' ? 'selected' : '' %>>Mobility</option>
+                  <option value="strength" <%= exercise && exercise.category === 'strength' ? 'selected' : '' %>>Strength</option>
+                  <option value="stretching" <%= exercise && exercise.category === 'stretching' ? 'selected' : '' %>>Stretching</option>
+                  <option value="balance" <%= exercise && exercise.category === 'balance' ? 'selected' : '' %>>Balance</option>
+                  <option value="cardio" <%= exercise && exercise.category === 'cardio' ? 'selected' : '' %>>Cardio</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="difficulty" class="form-label">Difficulty *</label>
+                <select class="form-select" id="difficulty" name="difficulty" required>
+                  <option value="beginner" <%= exercise && exercise.difficulty === 'beginner' ? 'selected' : '' %>>Beginner</option>
+                  <option value="intermediate" <%= exercise && exercise.difficulty === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+                  <option value="advanced" <%= exercise && exercise.difficulty === 'advanced' ? 'selected' : '' %>>Advanced</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="image" class="form-label">Exercise Image</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                <% if (exercise && exercise.imageUrl) { %>
+                  <small class="form-text text-muted">Current image will be replaced if you upload a new one</small>
+                <% } %>
+              </div>
+
+       
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save Exercise</button>
+                <a href="/therapist/exercises" class="btn btn-outline-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('../partials/footer') %>

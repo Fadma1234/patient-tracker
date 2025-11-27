@@ -1,0 +1,110 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="card">
+      <div class="card-header">
+        <h2>Create Exercise Plan for <%= patient.profile.firstName %> <%= patient.profile.lastName %></h2>
+      </div>
+      <div class="card-body">
+        <form action="/therapist/plans" method="POST" id="planForm">
+          <input type="hidden" name="patientId" value="<%= patient._id %>">
+
+          <div class="mb-3">
+            <label for="endDate" class="form-label">Plan End Date (Optional)</label>
+            <input type="date" class="form-control" id="endDate" name="endDate">
+          </div>
+
+          <h4 class="mt-4 mb-3">Select Exercises</h4>
+          
+          <div id="exercisesContainer">
+            <!-- Exercise selections will be added here -->
+          </div>
+
+          <button type="button" class="btn btn-outline-primary mb-4" id="addExerciseBtn">
+            + Add Exercise
+          </button>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success">Create Plan</button>
+            <a href="/therapist/patients/<%= patient._id %>" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var exerciseCount = 0;
+var availableExercises = <%- JSON.stringify(exercises) %>;
+
+function buildExerciseOptions() {
+  var options = '<option value="">Choose...</option>';
+  for (var i = 0; i < availableExercises.length; i++) {
+    var ex = availableExercises[i];
+    options += '<option value="' + ex._id + '">' + ex.name + '</option>';
+  }
+  return options;
+}
+
+function addExercise() {
+  var container = document.getElementById('exercisesContainer');
+  var exerciseDiv = document.createElement('div');
+  exerciseDiv.className = 'card mb-3';
+  exerciseDiv.id = 'exercise-' + exerciseCount;
+  
+  var html = '<div class="card-body">';
+  html += '<div class="d-flex justify-content-between align-items-center mb-3">';
+  html += '<h5>Exercise ' + (exerciseCount + 1) + '</h5>';
+  html += '<button type="button" class="btn btn-sm btn-danger" onclick="removeExercise(' + exerciseCount + ')">Remove</button>';
+  html += '</div>';
+  html += '<div class="row">';
+  html += '<div class="col-md-6 mb-3">';
+  html += '<label class="form-label">Select Exercise *</label>';
+  html += '<select class="form-select" name="exercises[' + exerciseCount + '][exerciseId]" required>';
+  html += buildExerciseOptions();
+  html += '</select>';
+  html += '</div>';
+  html += '<div class="col-md-6 mb-3">';
+  html += '<label class="form-label">Frequency</label>';
+  html += '<input type="text" class="form-control" name="exercises[' + exerciseCount + '][frequency]" placeholder="e.g., 3x per week">';
+  html += '</div>';
+  html += '<div class="col-md-4 mb-3">';
+  html += '<label class="form-label">Sets</label>';
+  html += '<input type="number" class="form-control" name="exercises[' + exerciseCount + '][sets]" min="0">';
+  html += '</div>';
+  html += '<div class="col-md-4 mb-3">';
+  html += '<label class="form-label">Reps</label>';
+  html += '<input type="number" class="form-control" name="exercises[' + exerciseCount + '][reps]" min="0">';
+  html += '</div>';
+  html += '<div class="col-md-4 mb-3">';
+  html += '<label class="form-label">Duration (seconds)</label>';
+  html += '<input type="number" class="form-control" name="exercises[' + exerciseCount + '][duration]" min="0">';
+  html += '</div>';
+  html += '<div class="col-12 mb-3">';
+  html += '<label class="form-label">Notes</label>';
+  html += '<textarea class="form-control" name="exercises[' + exerciseCount + '][notes]" rows="2"></textarea>';
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+  
+  exerciseDiv.innerHTML = html;
+  container.appendChild(exerciseDiv);
+  exerciseCount++;
+}
+
+function removeExercise(id) {
+  var element = document.getElementById('exercise-' + id);
+  if (element) {
+    element.remove();
+  }
+}
+
+document.getElementById('addExerciseBtn').addEventListener('click', addExercise);
+
+// Add first exercise by default
+addExercise();
+</script>
+
+<%- include('../partials/footer') %>
