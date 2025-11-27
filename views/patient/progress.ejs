@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<h1>My Progress</h1>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Exercise History</h3>
+      </div>
+      <div class="card-body">
+        <% if (logs.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Date</th>
+                  <th>Pain Level</th>
+                  <th>Difficulty</th>
+                  <th>Duration</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% logs.forEach(log => { %>
+                  <tr>
+                    <td><%= log.exerciseId ? log.exerciseId.name : 'N/A' %></td>
+                    <td><%= log.completedAt ? new Date(log.completedAt).toLocaleDateString() : 'N/A' %></td>
+                    <td><%= log.painLevel || 'N/A' %></td>
+                    <td><%= log.difficultyRating || 'N/A' %></td>
+                    <td><%= (log.metrics && log.metrics.duration) ? log.metrics.duration : 'N/A' %>s</td>
+                    <td><%= log.notes || '-' %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p>No exercises logged yet. Start your recovery journey today!</p>
+          <a href="/patient/exercises" class="btn btn-primary">View Exercises</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

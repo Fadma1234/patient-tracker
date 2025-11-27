@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h2>Compose Message</h2>
+      </div>
+      <div class="card-body">
+        <form action="/messages" method="POST">
+          <div class="mb-3">
+            <label for="recipientId" class="form-label">To: *</label>
+            <select class="form-select" id="recipientId" name="recipientId" required>
+              <option value="">Select recipient...</option>
+              <% recipients.forEach(recipient => { %>
+                <option value="<%= recipient._id %>">
+                  <%= recipient.profile.firstName %> <%= recipient.profile.lastName %>
+                  (<%= recipient.role %>)
+                </option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="subject" class="form-label">Subject: *</label>
+            <input type="text" class="form-control" id="subject" name="subject" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="content" class="form-label">Message: *</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <a href="/messages" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

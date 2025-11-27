@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>Chat with <%= partner.profile.firstName %> <%= partner.profile.lastName %></h1>
+  <a href="/messages" class="btn btn-outline-secondary">Back to Messages</a>
+</div>
+
+<div class="card">
+  <div class="card-body" style="height: 400px; overflow-y: auto;" id="messageContainer">
+    <% if (messages && messages.length > 0) { %>
+      <% messages.forEach(msg => { %>
+        <div class="mb-3 <%= msg.senderId.toString() === user._id.toString() ? 'text-end' : '' %>">
+          <div class="d-inline-block p-2 rounded <%= msg.senderId.toString() === user._id.toString() ? 'bg-primary text-white' : 'bg-light' %>" style="max-width: 70%;">
+            <p class="mb-1"><%= msg.content %></p>
+            <small class="<%= msg.senderId.toString() === user._id.toString() ? 'text-white-50' : 'text-muted' %>">
+              <%= new Date(msg.createdAt).toLocaleTimeString() %>
+            </small>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p class="text-muted text-center">No messages yet. Start the conversation!</p>
+    <% } %>
+  </div>
+  
+  <div class="card-footer">
+    <form action="/messages/<%= partner._id %>" method="POST">
+      <div class="input-group">
+        <input type="text" class="form-control" name="content" placeholder="Type your message..." required autofocus>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Scroll to bottom of messages
+  var container = document.getElementById('messageContainer');
+  container.scrollTop = container.scrollHeight;
+</script>
+
+<%- include('../partials/footer') %>

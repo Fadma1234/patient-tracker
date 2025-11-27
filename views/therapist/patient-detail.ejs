@@ -1,0 +1,109 @@
+<%- include('../partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1><%= patient.profile.firstName %> <%= patient.profile.lastName %></h1>
+  <a href="/therapist/patients" class="btn btn-outline-secondary">Back to Patients</a>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body text-center">
+        <% if (patient.profile.avatar) { %>
+          <img src="<%= patient.profile.avatar %>" alt="Avatar" class="rounded-circle mb-3" width="100" height="100">
+        <% } else { %>
+          <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 100px; height: 100px; font-size: 2rem;">
+            <%= patient.profile.firstName.charAt(0) %><%= patient.profile.lastName.charAt(0) %>
+          </div>
+        <% } %>
+        <h5><%= patient.profile.firstName %> <%= patient.profile.lastName %></h5>
+        <p class="text-muted"><%= patient.email %></p>
+        <% if (patient.profile.phoneNumber) { %>
+          <p><strong>Phone:</strong> <%= patient.profile.phoneNumber %></p>
+        <% } %>
+        
+        <div class="d-grid gap-2 mt-3">
+          <a href="/therapist/plans/new/<%= patient._id %>" class="btn btn-success">Create New Plan</a>
+          <a href="/messages/compose?recipient=<%= patient._id %>" class="btn btn-primary">Send Message</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Active Exercise Plan</h3>
+        <% if (activePlan) { %>
+          <form action="/therapist/plans/<%= activePlan._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this exercise plan? The patient will no longer see it.')">
+              <i class="fas fa-trash"></i> Delete Plan
+            </button>
+          </form>
+        <% } %>
+      </div>
+      <div class="card-body">
+        <% if (activePlan && activePlan.exercises.length > 0) { %>
+          <p><strong>Start Date:</strong> <%= activePlan.startDate ? new Date(activePlan.startDate).toLocaleDateString() : 'N/A' %></p>
+          <% if (activePlan.endDate) { %>
+            <p><strong>End Date:</strong> <%= new Date(activePlan.endDate).toLocaleDateString() %></p>
+          <% } %>
+          
+          <h5 class="mt-3">Exercises:</h5>
+          <ul class="list-group">
+            <% activePlan.exercises.forEach(ex => { %>
+              <li class="list-group-item">
+                <strong><%= ex.exerciseId ? ex.exerciseId.name : 'N/A' %></strong>
+                <br>
+                <small>
+                  <% if (ex.sets) { %>Sets: <%= ex.sets %> | <% } %>
+                  <% if (ex.reps) { %>Reps: <%= ex.reps %> | <% } %>
+                  <% if (ex.frequency) { %>Frequency: <%= ex.frequency %><% } %>
+                </small>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>No active exercise plan.</p>
+          <a href="/therapist/plans/new/<%= patient._id %>" class="btn btn-success">Create Plan</a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3>Recent Activity</h3>
+      </div>
+      <div class="card-body">
+        <% if (logs.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Date</th>
+                  <th>Pain</th>
+                  <th>Difficulty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% logs.forEach(log => { %>
+                  <tr>
+                    <td><%= log.exerciseId ? log.exerciseId.name : 'N/A' %></td>
+                    <td><%= log.completedAt ? new Date(log.completedAt).toLocaleDateString() : 'N/A' %></td>
+                    <td><%= log.painLevel || 'N/A' %>/10</td>
+                    <td><%= log.difficultyRating || 'N/A' %>/5</td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p>No activity logged yet.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

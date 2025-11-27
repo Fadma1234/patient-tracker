@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2><%= message.subject %></h2>
+        <a href="/messages" class="btn btn-sm btn-outline-secondary">Back to Inbox</a>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <strong>From:</strong> <%= message.senderId.profile.firstName %> <%= message.senderId.profile.lastName %>
+          (<%= message.senderId.role %>)
+        </div>
+        <div class="mb-3">
+          <strong>Date:</strong> <%= new Date(message.createdAt).toLocaleString() %>
+        </div>
+        <hr>
+        <div class="message-content">
+          <%= message.content %>
+        </div>
+        
+        <div class="mt-4">
+          <form action="/messages/<%= message._id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this message?')">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
